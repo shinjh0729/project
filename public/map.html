@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" id="viewport" content="width=device-width, height=device-height, initial-scale=1" >
+    <title>도시락가게</title>
+        
+    <style>
+        * {
+            margin: 00;
+            padding: 50;
+        }
+        
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+        
+        #map {
+            width: 100%;
+            height: 95%;
+        }
+    </style>
+    
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCxgSpw5aHnyVE8_MhnxWji5qK8Cjl6zzQ"></script>
+    
+    <script>
+        function onLoad() {
+            initMap();
+        }
+        
+        var map;
+        var centerLocation = {lat: 36.30615, lng: 127.33758};
+         
+        function initMap() {
+             
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: centerLocation,
+                zoom: 17
+            });
+            
+            var marker = new google.maps.Marker({
+                position:centerLocation,
+                icon:'mylocation.png',
+                animation:google.maps.Animation.BOUNCE
+            });
+
+            marker.setMap(map);
+        }
+        
+    </script>
+    
+</head>
+<body onload="onLoad()">
+    <a href="/">홈으로</a>
+    <p>저희가게 주소는 관저동입니다!</p>
+    <div id="map"></div>
+</body>
+</html>

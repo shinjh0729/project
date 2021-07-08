@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
+		
+		<title>주문메뉴</title>
+		<script type="text/javascript">
+
+			function al() {
+				alert("주문이 완료되었습니다.")
+			}
+			
+		</script>
+			
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+  		<link href="/public/semantic.min.css" rel="stylesheet" >
+		
+		<style>
+			header{
+				height:90px;
+				padding:1rem;
+				background: burlywood;
+				font-weight: bold;
+				justify-content: space-between;
+				align-items: center;
+				position:fixed;
+				top:0;
+				left:0;
+				right:0;
+			}
+			a{
+				color:whitesmoke;
+				text-decoration: none;
+			}
+			main{
+				padding-top:90px;
+			}
+			body{
+			background-image: url('../public/images/main.jpg');
+			background-size: cover;
+			}
+		</style>
+		
+		
+		<script src="/public/jquery-2.1.4.min.js"></script>
+		<script src="/public/semantic.min.js"></script>
+		
+		<script>
+			function listpost(page, perPage) {
+				document.location = '/process/listpost?page=' + page + '&perPage=' + perPage;
+			}
+		</script>
+		
+	</head>
+	<body>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+		<header>
+		<h2 class="text-center">두솥도시락</h2>
+		<p class="text-center">도시락 좋아하시나요?</p>
+		</header>
+		<main>
+			<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+				<a href="/" class="navbar-brand">두솥도시락</a>
+				<ul class="navbar-nav">
+					<li class="nav-item"><a href="/process/listpost" class="nav-link">메뉴판&주문</a></li>
+					<li class="nav-item"><a href="/public/map.html" class="nav-link">찾아오시는 길</a></li>
+				</ul>
+			</nav>
+    	<div class="container">
+			<br>
+    		
+			<div class="ui raised segment">
+				<a class="ui blue ribbon label">메뉴판</a>
+      			<span id="board_title"><%=title %></span>
+			
+				
+				<div class="ui blue fluid card">
+					 <div class="content">
+       		
+			      		
+						<div class="ui grid">
+			   				<div class="two wide column">메뉴</div>
+			   				<div class="eight wide column">가격</div>
+			   			</div>
+				    		
+						<div class="ui very relaxed selection celled list">
+							<%  var noStart = (pageCount - page) * perPage;
+							
+							    for (var i = 0; i < posts.length; i++) {
+								   var curTitle = posts[i]._doc.name;
+								   var curPrice = posts[i]._doc.price;
+								   var curNo = noStart - i;
+								   %>
+								    <div class="item">
+										<div class="ui grid">
+						    				<div class="two wide column"><%=curTitle %></div>
+						    				<div class="fourteen wide column" >
+						    					<div class="ui header">
+										    		<h4 class="ui left aligned header">
+										    			<%=curPrice %>원
+										    		</h4>
+											      	
+												</div>
+						    				</div>
+						    			</div>
+						    		</div>
+							<% } %>	
+						 
+				    	</div>
+			    	 
+			       		<br>
+						<div class="tiny ui basic buttons">
+					 		<%
+					 			if (page > 0) {
+					 		%>
+					 				<div class="ui icon button" onclick="listpost(0, <%=perPage %>)">
+										<i class="backward icon"></i>
+									</div>
+									<div class="ui icon button" onclick="listpost(<%=(page-1) %>, <%=perPage %>)">
+										<i class="left chevron icon"></i>
+									</div>
+					 		<%
+					 			} else {
+					 		%>
+					 				<div class="ui disabled icon button">
+										<i class="backward icon"></i>
+									</div>
+									<div class="ui disabled icon button">
+										<i class="left chevron icon"></i>
+									</div>
+					 		<%
+					 			}
+					 		%>
+					 		<% 
+					 			var initial = Math.floor(page / 10) * 10;
+					 			console.log('initial : ' + initial);
+					 			
+					 			var max = pageCount - initial;
+					 			if (max > 10) {
+					 				max = initial + 10;
+					 			} else {
+					 				max = initial + max;
+					 			}
+					 			console.log('max : ' + max);
+					 			
+					 			for (var i = initial; i < max; i++) {
+					 				if (i != page) {
+					 		%>
+					 					<div class="ui button" onclick="listpost(<%=i %>, <%=perPage %>)">
+					 						<%= i %>
+					 					</div>
+					 		<%
+					 				} else {
+					 		%>
+					 					<div class="ui active basic button">
+					 						<%= i %>
+					 					</div>
+					 		<% 
+					 				}
+					 			}
+					 		%>
+					 		<%
+					 			if ((page+1) < pageCount) {
+					 		%>
+					 				<div class="ui icon button" onclick="listpost(<%=(page+1) %>, <%=perPage %>)">
+										<i class="right chevron icon"></i>
+									</div>
+									<div class="ui icon button" onclick="listpost(<%=(pageCount-1) %>, <%=perPage %>)">
+										<i class="forward icon"></i>
+									</div>
+					 		<%
+					 			} else {
+					 		%>
+					 				<div class="ui disabled icon button">
+										<i class="right chevron icon"></i>
+									</div>
+									<div class="ui disabled icon button">
+										<i class="forward icon"></i>
+									</div>
+					 		<%
+					 			}
+					 		%>
+					 	</div>
+						 	  
+						<br><br><br><br>
+
+						<form action="/process/ordering" method="post">
+							<h3>주문하기</h3>
+							<div class="form-group">
+								<label>주문자 성함</label>
+								<input type="text" class="form-control" name="username">
+							</div>
+							<div class="form-group">
+								<label>주문내용</label>
+								<input type="text" class="form-control" name="order">
+							</div>
+							<div class="form-group">
+								<label>주소</label>
+								<input type="text" class="form-control" name="address">
+							</div>
+							<div class="form-group">
+								<label>전화번호</label>
+								<input type="text" class="form-control" name="phone">
+							</div>
+							
+							<button type="submit" class="btn btn-warning btn-lg" onclick="al();">주문하기</button>
+
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		</main>
+	</body>
+</html>
+

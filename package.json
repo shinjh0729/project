@@ -1,0 +1,35 @@
+{
+  "name": "test111",
+  "version": "1.0.0",
+  "description": " Basic Mathmatics",
+  "main": "bmath.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mr.Shin",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "ejs": "^3.1.6",
+    "errorhandler": "^1.5.1",
+    "express": "^4.17.1",
+    "express-error-handler": "^1.1.0",
+    "express-session": "^1.17.1",
+    "html-entities": "^2.3.2",
+    "http": "0.0.1-security",
+    "jjun07-mathlib": "^1.7.0",
+    "mongodb": "^3.6.6",
+    "mongoose": "^5.12.7",
+    "multer": "^1.4.2",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
+    "path": "^0.12.7",
+    "serve-static": "^1.14.1",
+    "typescript": "^4.2.4",
+    "ykh_example_calc": "^1.0.0"
+  }
+}
